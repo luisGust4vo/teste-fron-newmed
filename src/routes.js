@@ -49,6 +49,11 @@ import SignUp from "layouts/authentication/sign-up";
 import Patients from "layouts/patients";
 import Reports from "layouts/reports";
 import BillingWhatsApp from "layouts/billing-whatsapp";
+import Schedule from "layouts/schedule";
+import MedicalRecords from "layouts/medical-records";
+import Templates from "layouts/templates";
+import Telemedicine from "layouts/telemedicine";
+import Communication from "layouts/communication";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -94,6 +99,46 @@ const routes = [
     icon: <Icon fontSize="small">whatsapp</Icon>,
     route: "/billing-whatsapp",
     component: <BillingWhatsApp />,
+  },
+  {
+    type: "collapse",
+    name: "Agenda",
+    key: "schedule",
+    icon: <Icon fontSize="small">schedule</Icon>,
+    route: "/schedule",
+    component: <Schedule />,
+  },
+  {
+    type: "collapse",
+    name: "Prontuário",
+    key: "medical-records",
+    icon: <Icon fontSize="small">folder_shared</Icon>,
+    route: "/medical-records",
+    component: <MedicalRecords />,
+  },
+  {
+    type: "collapse",
+    name: "Templates",
+    key: "templates",
+    icon: <Icon fontSize="small">content_copy</Icon>,
+    route: "/templates",
+    component: <Templates />,
+  },
+  {
+    type: "collapse",
+    name: "Telemedicina",
+    key: "telemedicine",
+    icon: <Icon fontSize="small">video_call</Icon>,
+    route: "/telemedicine",
+    component: <Telemedicine />,
+  },
+  {
+    type: "collapse",
+    name: "Comunicação",
+    key: "communication",
+    icon: <Icon fontSize="small">chat</Icon>,
+    route: "/communication",
+    component: <Communication />,
   },
   {
     type: "divider",

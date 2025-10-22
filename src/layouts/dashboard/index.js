@@ -42,19 +42,28 @@ function Dashboard() {
     patients: 0,
     reports: 0,
     signedReports: 0,
-    pendingBillings: 0
+    pendingBillings: 0,
+    appointments: 0,
+    templates: 0,
+    telemedicine: 0
   });
 
   useEffect(() => {
     const patients = JSON.parse(localStorage.getItem("patients") || "[]");
     const reports = JSON.parse(localStorage.getItem("reports") || "[]");
     const billings = JSON.parse(localStorage.getItem("billings") || "[]");
+    const appointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+    const templates = JSON.parse(localStorage.getItem("reportTemplates") || "[]");
+    const telemedicine = JSON.parse(localStorage.getItem("telemedicine") || "[]");
     
     setMedicalStats({
       patients: patients.length,
       reports: reports.length,
       signedReports: reports.filter(r => r.signed).length,
-      pendingBillings: billings.filter(b => b.status === "Pendente").length
+      pendingBillings: billings.filter(b => b.status === "Pendente").length,
+      appointments: appointments.length,
+      templates: templates.length,
+      telemedicine: telemedicine.length
     });
   }, []);
 
@@ -124,6 +133,55 @@ function Dashboard() {
             </MDBox>
           </Grid>
         </Grid>
+        <MDBox mt={2}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="dark"
+                  icon="schedule"
+                  title="Consultas"
+                  count={medicalStats.appointments}
+                  percentage={{
+                    color: "info",
+                    amount: "",
+                    label: "Agendadas",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="secondary"
+                  icon="content_copy"
+                  title="Templates"
+                  count={medicalStats.templates}
+                  percentage={{
+                    color: "secondary",
+                    amount: "",
+                    label: "Disponíveis",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+            <Grid item xs={12} md={6} lg={4}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard
+                  color="error"
+                  icon="video_call"
+                  title="Telemedicina"
+                  count={medicalStats.telemedicine}
+                  percentage={{
+                    color: "error",
+                    amount: "",
+                    label: "Consultas online",
+                  }}
+                />
+              </MDBox>
+            </Grid>
+          </Grid>
+        </MDBox>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
