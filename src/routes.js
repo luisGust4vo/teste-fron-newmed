@@ -45,6 +45,11 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 
+// Medical System layouts
+import Patients from "layouts/patients";
+import Reports from "layouts/reports";
+import BillingWhatsApp from "layouts/billing-whatsapp";
+
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -56,6 +61,43 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  {
+    type: "divider",
+    key: "divider-medical",
+  },
+  {
+    type: "title",
+    title: "Sistema Médico",
+    key: "medical-title",
+  },
+  {
+    type: "collapse",
+    name: "Pacientes",
+    key: "patients",
+    icon: <Icon fontSize="small">people</Icon>,
+    route: "/patients",
+    component: <Patients />,
+  },
+  {
+    type: "collapse",
+    name: "Laudos",
+    key: "reports",
+    icon: <Icon fontSize="small">description</Icon>,
+    route: "/reports",
+    component: <Reports />,
+  },
+  {
+    type: "collapse",
+    name: "Cobrança WhatsApp",
+    key: "billing-whatsapp",
+    icon: <Icon fontSize="small">whatsapp</Icon>,
+    route: "/billing-whatsapp",
+    component: <BillingWhatsApp />,
+  },
+  {
+    type: "divider",
+    key: "divider-original",
   },
   {
     type: "collapse",

@@ -15,6 +15,7 @@ Coded by www.creative-tim.com
 
 // @mui material components
 import Grid from "@mui/material/Grid";
+import { useState, useEffect } from "react";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -37,6 +38,25 @@ import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const [medicalStats, setMedicalStats] = useState({
+    patients: 0,
+    reports: 0,
+    signedReports: 0,
+    pendingBillings: 0
+  });
+
+  useEffect(() => {
+    const patients = JSON.parse(localStorage.getItem("patients") || "[]");
+    const reports = JSON.parse(localStorage.getItem("reports") || "[]");
+    const billings = JSON.parse(localStorage.getItem("billings") || "[]");
+    
+    setMedicalStats({
+      patients: patients.length,
+      reports: reports.length,
+      signedReports: reports.filter(r => r.signed).length,
+      pendingBillings: billings.filter(b => b.status === "Pendente").length
+    });
+  }, []);
 
   return (
     <DashboardLayout>
@@ -46,28 +66,14 @@ function Dashboard() {
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
-                color="dark"
-                icon="weekend"
-                title="Bookings"
-                count={281}
+                color="info"
+                icon="people"
+                title="Pacientes"
+                count={medicalStats.patients}
                 percentage={{
                   color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                icon="leaderboard"
-                title="Today's Users"
-                count="2,300"
-                percentage={{
-                  color: "success",
-                  amount: "+3%",
-                  label: "than last month",
+                  amount: "",
+                  label: "Total cadastrados",
                 }}
               />
             </MDBox>
@@ -76,13 +82,28 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="success"
-                icon="store"
-                title="Revenue"
-                count="34k"
+                icon="description"
+                title="Laudos"
+                count={medicalStats.reports}
                 percentage={{
-                  color: "success",
-                  amount: "+1%",
-                  label: "than yesterday",
+                  color: "info",
+                  amount: `${medicalStats.signedReports} assinados`,
+                  label: "do total",
+                }}
+              />
+            </MDBox>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <MDBox mb={1.5}>
+              <ComplexStatisticsCard
+                color="warning"
+                icon="receipt_long"
+                title="Cobranças"
+                count={medicalStats.pendingBillings}
+                percentage={{
+                  color: "warning",
+                  amount: "",
+                  label: "Pendentes",
                 }}
               />
             </MDBox>
@@ -91,13 +112,13 @@ function Dashboard() {
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
+                icon="verified"
+                title="Assinados"
+                count={medicalStats.signedReports}
                 percentage={{
                   color: "success",
                   amount: "",
-                  label: "Just updated",
+                  label: "Laudos assinados",
                 }}
               />
             </MDBox>
